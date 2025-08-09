@@ -1,0 +1,31 @@
+pipeline {
+    agent {label 'slave'}
+
+    stages {
+        stage('pulling the github repo') {
+              steps{
+                  echo "pulling the github repo"
+                  git url: 'https://github.com/Vishnu4538/jenkin', branch: 'main'
+              }            
+        }
+        stage('building the code'){
+            steps{
+                echo "building phase"
+                sh 'whoami'
+                sh 'docker build -t vishnu4538/hello:${BUILD_NUMBER} .'
+                 withCredentials([usernamePassword(credentialsId: 'dockerpass', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                sh 'echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin'
+                 }
+                 sh 'docker push vishnu4538/hello:${BUILD_NUMBER}'
+            }
+            
+         }
+        stage('deploying the code'){
+            steps {
+                echo "deploying phase"
+                sh 'docker run -d -p 80:80 --network=vishnu --name=jenkins vishnu4538/hello:${BUILD_NUMBER}'
+                sh 'docker rmi -f vishnu4538/hello:${BUILD_NUMBER}'
+            }
+        }
+    }
+}
