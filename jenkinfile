@@ -23,7 +23,8 @@ pipeline {
         stage('deploying the code'){
             steps {
                 echo "deploying phase"
-                sh 'docker run -d -p 80:80 --network=vishnu --name=jenkins vishnu4538/hello:${BUILD_NUMBER}'
+                sh '''sed -i "s/hello/hello:${BUILD_NUMBER}/" docker-compose.yml'''
+                sh 'docker-compose up -d '
                 sh 'docker rmi -f vishnu4538/hello:${BUILD_NUMBER}'
             }
         }
