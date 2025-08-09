@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+  frontend:
+    image: vishnu4538/hello
+    container_name: user-service
+    ports:
+         - "80:80"
+
+
