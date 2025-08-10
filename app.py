@@ -6,7 +6,7 @@ app = Flask(__name__)
 def get_products():
     return jsonify([
         {"id": 101, "name": "vishnu"},
-        {"id": 102, "name": "kalyan"}
+        {"id": 102, "product": "acer aspirie 3"}
     ])
 
 if __name__ == '__main__':
