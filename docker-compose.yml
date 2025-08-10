@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   app:
-    image: vishnu4538/hello
+    image: vishnu4538/flaskapp
     container_name: user-service
     ports:
          - "30:5001"
