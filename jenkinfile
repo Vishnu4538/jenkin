@@ -12,20 +12,21 @@ pipeline {
             steps{
                 echo "building phase"
                 sh 'whoami'
-                sh 'docker build -t vishnu4538/hello:${BUILD_NUMBER} .'
+                sh 'docker build -t vishnu4538/flaskapp:${BUILD_NUMBER} .'
                  withCredentials([usernamePassword(credentialsId: 'dockerpass', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                 sh 'echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin'
                  }
-                 sh 'docker push vishnu4538/hello:${BUILD_NUMBER}'
+                 sh 'docker push vishnu4538/flaskapp:${BUILD_NUMBER}'
             }
             
          }
         stage('deploying the code'){
             steps {
                 echo "deploying phase"
-                sh '''sed -i "s/hello/hello:${BUILD_NUMBER}/" docker-compose.yml'''
+                sh '''sed -i "s/flaskapp/flaskapp:${BUILD_NUMBER}/" docker-compose.yml'''
                 sh 'docker-compose up -d '
-                sh 'docker rmi -f vishnu4538/hello:${BUILD_NUMBER}'
+                sh 'docker rmi -f vishnu4538/flaskapp:${BUILD_NUMBER}'
+                sh '''sed -i "s/flaskapp:${BUILD_NUMBER}/flaskapp/" docker-compose.yml'''
             }
         }
     }
