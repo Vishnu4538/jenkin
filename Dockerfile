@@ -1,7 +1,8 @@
-FROM nginx:latest
+FROM python:3.9
+WORKDIR /app
+COPY app.py .
+RUN pip install flask
+CMD ["python", "app.py"]
 
-COPY index.html /usr/share/nginx/html/
-
-EXPOSE 80
-
+EXPOSE 5001
 
