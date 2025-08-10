@@ -27,7 +27,6 @@ pipeline {
                 sh '''sed -i "s/flaskapp/flaskapp:${BUILD_NUMBER}/" docker-compose.yml'''
                 sh 'docker-compose up -d '
                 sh 'docker rmi -f vishnu4538/flaskapp:${BUILD_NUMBER}'
-                sh '''sed -i "s/flaskapp:${BUILD_NUMBER}/flaskapp/" docker-compose.yml'''
             }
         }
     }
