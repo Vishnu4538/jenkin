@@ -17,6 +17,7 @@ pipeline {
                 sh 'echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin'
                  }
                  sh 'docker push vishnu4538/flaskapp:${BUILD_NUMBER}'
+                 echo "building phase"
             }
             
          }
