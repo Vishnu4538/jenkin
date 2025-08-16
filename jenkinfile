@@ -11,12 +11,11 @@ pipeline {
         stage('building the code'){
             steps{
                 echo "building phase"
-                sh 'whoami'
-                sh 'docker build -t vishnu4538/flaskapp:${BUILD_NUMBER} .'
+                sh 'docker build -t vishnu4538/nginxapp:${BUILD_NUMBER} .'
                  withCredentials([usernamePassword(credentialsId: 'dockerpass', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                 sh 'echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin'
                  }
-                 sh 'docker push vishnu4538/flaskapp:${BUILD_NUMBER}'
+                 sh 'docker push vishnu4538/nginxapp:${BUILD_NUMBER}'
                  echo "building phase"
             }
             
@@ -24,9 +23,8 @@ pipeline {
         stage('deploying the code'){
             steps {
                 echo "deploying phase"
-                sh '''sed -i "s/flaskapp/flaskapp:${BUILD_NUMBER}/" docker-compose.yml'''
+                sh '''sed -i "s/nginxapp/nginxapp:${BUILD_NUMBER}/" docker-compose.yml'''
                 sh 'docker-compose up -d '
-                sh 'docker rmi -f vishnu4538/flaskapp:${BUILD_NUMBER}'
             }
         }
     }
