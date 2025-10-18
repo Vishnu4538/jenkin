@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'slave'}
+    agent {label 'awsmaster'}
 
     stages {
         stage('pulling the github repo') {
@@ -12,7 +12,7 @@ pipeline {
             steps{
                 echo "building phase"
                 sh 'docker build -t vishnu4538/nginxapp:${BUILD_NUMBER} .'
-                 withCredentials([usernamePassword(credentialsId: 'dockerpass', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                 withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                 sh 'echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin'
                  }
                  sh 'docker push vishnu4538/nginxapp:${BUILD_NUMBER}'
@@ -20,11 +20,15 @@ pipeline {
             }
             
          }
-        stage('deploying the code'){
+         stage('Image updater in github'){
+             
+             steps{
+                     sh 'sh image_update.sh vishnu4538 ${BUILD_NUMBER}'
+             }
+         }
+        stage('removing the image'){
             steps {
-                echo "deploying phase"
-                sh '''sed -i "s/nginxapp/nginxapp:${BUILD_NUMBER}/" docker-compose.yml'''
-                sh 'docker-compose up -d '
+                sh 'docker rmi vishnu4538/nginxapp:${BUILD_NUMBER}'
             }
         }
     }
