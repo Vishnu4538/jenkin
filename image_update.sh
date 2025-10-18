@@ -11,7 +11,7 @@ sleep 9s
 
 Adding image line to file $1 is username of docker and $2 is for tag
 
-sed -i "19i\        image: docker.io/$1/front:$2" vishnu.yml
+sed -i "19i\        image: docker.io/$1/nginxapp:$2" vishnu.yml
 
 git add .
 
