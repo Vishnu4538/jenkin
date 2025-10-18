@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontapp
+  template:
+    metadata:
+      labels:
+        app: frontapp
+    spec:
+      containers:
+      - name: website
+        image: docker.io/vishnu4538/front:v1
+        ports:
+        - containerPort: 80
+      affinity:
+         nodeAffinity:
+           requiredDuringSchedulingIgnoredDuringExecution:
+             nodeSelectorTerms:
+             - matchExpressions:
+                - key: nodename
+                  operator: In
+                  values:
+                    - app-worker2
