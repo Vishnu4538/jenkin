@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: website
-        image:docker.io/vishnu4538/front:v6
+        image:docker.io/vishnu4538/front:v7
         ports:
         - containerPort: 80
       affinity:
