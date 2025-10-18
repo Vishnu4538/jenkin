@@ -3,7 +3,7 @@
 
 username=$1 # docker username
 
-delete image line
+#delete image line
 
 sed -i {"/image:/d"} vishnu.yml
 
