@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deployment
+  name: front:v1end-deployment
   labels:
-    app: frontapp
+    app: webapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontapp
+      app: webapp
   template:
     metadata:
       labels:
-        app: frontapp
+        app: webapp
     spec:
       containers:
       - name: website
-        image: docker.io/vishnu4538/front:v1
+        image:docker.io/vishnu4538/front:v6
         ports:
         - containerPort: 80
       affinity:
