@@ -21,5 +21,5 @@ echo "We have commit tag change to $2"
 
 git push origin main 
 
-echo " we have pushed the updated image to $1 account and with tag $2"
+echo " we have pushed the updated image to $1 account with tag $2"
 
