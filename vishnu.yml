@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: website
-        image: docker.io/vishnu4538/nginxapp:56
+        image: docker.io/vishnu4538/nginxapp:59
         ports:
         - containerPort: 80
       affinity:
