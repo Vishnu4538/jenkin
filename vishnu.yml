@@ -5,7 +5,7 @@ metadata:
   labels:
     app: webapp
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: webapp
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: website
-        image: docker.io/vishnu4538/nginxapp:20
+        image: docker.io/vishnu4538/nginxapp:24
         ports:
         - containerPort: 80
       affinity:
