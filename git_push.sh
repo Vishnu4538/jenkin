@@ -1,10 +1,13 @@
 #!/bin/bash
 
+echo "Enter what changes your make to git repo:"
+
+read modified
 
 git add .
 
 
-git commit -m "$1"
+git commit -m "$modified"
 
 
 git push origin main
