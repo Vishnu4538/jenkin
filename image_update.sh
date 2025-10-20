@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-username=$1 # docker username
+username=vishnu4538 # docker account  username
 
 #delete image line
 
@@ -11,15 +11,17 @@ sleep 9s
 
 #Adding image line to file $1 is username of docker and $2 is for tag
 
-sed -i "19i\        image: docker.io/$1/nginxapp:$2" vishnu.yml
+sed -i "19i\        image: docker.io/$username/nginxapp:$1" vishnu.yml
+
+sleep 9s
 
 git add .
 
-git commit -m "Image is version updated to $2"
+git commit -m "image verion changed to $1"
 
-echo "We have committed tag change to $2"
+echo "We have committed tag change to $1"
 
 git push origin main 
 
-echo " we have pushed the updated image to $1 account with tag $2"
+echo " we have sucessfully pushed the updated image to $username account with tag version $1"
 
